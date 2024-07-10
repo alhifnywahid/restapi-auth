@@ -1,0 +1,17 @@
+<!-- views/profile.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+</head>
+<body>
+  <h1>Welcome, <%= user.displayName %></h1>
+  <p>Name: <%= user.displayName %></p>
+  <p>Email: <%= user.emails[0].value %></p>
+  <p>Google ID: <%= user.id %></p>
+  <p>API Key: <%= user.apiKey %></p> <!-- Display API Key -->
+  <p><a href="/logout">Logout</a></p>
+</body>
+</html>
