@@ -1,15 +1,17 @@
-const ApiKey = require('./../models/ApiKey');
+const ApiKey = require('./../models/AuthUser');
 
 module.exports = apikey = async (req, res, next) => {
-  const apiKey = req.headers['api-key'];
-  if (!apiKey) return ResponseFalse(res, "api-key di butuhkan!, silahkan chat creator untuk mendapatkan api-key (+6285655207366)");
+  const apiKey = req.headers['apikey'] || req.query.apikey
+  if (!apiKey) return ResponseFalse(res, "api-key di butuhkan!, silahkan login untuk mendapatkan api-key");
 
   try {
-    const apiRecord = await ApiKey.findOne({ apiKey });
+    // Mencari record apiKey berdasarkan key
+    const apiRecord = await ApiKey.findOne({ 'apiKey.key': apiKey });
     if (!apiRecord) return ResponseFalse(res, "api-key tidak valid");
 
-    if (apiRecord.usage < apiRecord.limit) { 
-      await ApiKey.updateOne({ apiKey }, { $inc: { usage: 1 } });
+    if (apiRecord.apiKey.usage < apiRecord.apiKey.limit) {
+      // Mengupdate penggunaan apiKey
+      await ApiKey.updateOne({ 'apiKey.key': apiKey }, { $inc: { 'apiKey.usage': 1 } });
       next();
     } else {
       return ResponseFalse(res, "Limit permintaan telah tercapai");
@@ -18,4 +20,9 @@ module.exports = apikey = async (req, res, next) => {
     console.error(err);
     return ResponseFalse(res, "Terjadi kesalahan dalam memeriksa apiKey");
   }
-}; 
+};
+
+// Fungsi untuk mengirim respon kesalahan
+function ResponseFalse(res, message) {
+  return res.status(400).json({ success: false, message });
+}

@@ -11,7 +11,8 @@
   <p>Name: <%= user.displayName %></p>
   <p>Email: <%= user.emails[0].value %></p>
   <p>Google ID: <%= user.id %></p>
-  <p>API Key: <%= user.apiKey %></p> <!-- Display API Key -->
+  <p>API Key: <%= user.apiKey.key %></p>
+  <p>Limit Tersisa: <%= user.apiKey.limit - user.apiKey.usage %></p>
   <p><a href="/logout">Logout</a></p>
 </body>
 </html>

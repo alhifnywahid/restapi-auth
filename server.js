@@ -48,6 +48,7 @@ app.get('/auth/google/callback', passport.authenticate('google', { failureRedire
 
 // server.js
 app.get('/api/get-api-key', (req, res) => {
+  console.log(req.user)
   if (req.isAuthenticated()) {
     res.json({ apiKey: req.user.apiKey, apiKeyLimit: req.user.apiKeyLimit });
   } else {
