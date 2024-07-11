@@ -1,18 +1,148 @@
 <!-- views/profile.ejs -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profile</title>
-</head>
-<body>
-  <h1>Welcome, <%= user.displayName %></h1>
-  <p>Name: <%= user.displayName %></p>
-  <p>Email: <%= user.emails[0].value %></p>
-  <p>Google ID: <%= user.id %></p>
-  <p>API Key: <%= user.apiKey.key %></p>
-  <p>Limit Tersisa: <%= user.apiKey.limit - user.apiKey.usage %></p>
-  <p><a href="/logout">Logout</a></p>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&amp;display=swap"
+      rel="stylesheet"
+    />
+    <title>Profile</title>
+    <style>
+      :root {
+        --blur: rgba(225, 225, 225, 0.3);
+        --body-bg-color: #f2f3f7;
+        --col-font: #252525;
+        --bg-color: #ffffff;
+        --bg-color-2nd: #f2f3f7;
+        --bg-color-3rd: #252525;
+        --primary-font-col: #ffffff;
+        --pallet: #252525;
+        --line-col: #f2f3f7;
+        --boxed-border: 1px solid #bbbbbb;
+        --accr-bg: #f6faff;
+        --accr-border: #c3deff;
+        --hover-border: #a4a1ff;
+        --accr-title-col: #1c2035;
+        --accr-content-col: #303651;
+        --accr-svg: #303651;
+        --keep-col: #ffffff;
+        --mark: #888;
+        --editor-border: #efefef;
+      }
+      * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        font-family: "Share Tech Mono";
+        background-image: url("/assets/pattern.png");
+        /* background-repeat: no-repeat; */
+        /* background-size: cover; */
+        background-attachment: fixed;
+        background-position: center;
+      }
+      .container {
+        width: fit-content;
+        height: fit-content;
+        padding: 18px;
+        border-radius: 5px;
+        border: var(--boxed-border);
+        background: var(--bg-color);
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 5px 0px !important;;
+      }
+      .btn-logout {
+        display: block;
+        padding: 12px 24px;
+        background-color: #f44336;
+        color: #fff;
+        border-radius: 4px;
+        text-decoration: none;
+        text-align: center;
+      }
+      .divider {
+        width: 100%;
+        height: 1px;
+        background-color: #ccc;
+        margin: 16px 0;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 16px;
+      }
+      th {
+        text-align: left;
+        padding: 8px;
+        width: fit-content;
+        text-wrap: nowrap;
+      }
+      td {
+        width: 100%;
+      }
+      .btn-copy {
+        cursor: pointer;
+        display: inline-block;
+        padding: 8px 12px;
+        border-radius: 6px;
+        background-color: #2196f3;
+        color: #fff;
+        text-decoration: none;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Welcome to GOPRETAPI</h1>
+      <hr class="divider" />
+      <table>
+        <tr>
+          <th>Nama</th>
+          <td>: <%= user.displayName %></td>
+        </tr>
+        <tr></tr>
+        <tr>
+          <th>Email</th>
+          <td>: <%= user.emails[0].value %></td>
+        </tr>
+        <tr></tr>
+        <tr>
+          <th>API Key</th>
+          <td>
+            : <span id="api-key"><%= user.apiKey.key %></span>
+            <button class="btn-copy">Copy</button>
+          </td>
+        </tr>
+        <tr>
+          <th>Limit Tersisa</th>
+          <td>: <%= user.apiKey.limit - user.apiKey.usage %></td>
+        </tr>
+      </table>
+      <hr class="divider" />
+      <a class="btn-logout" href="/logout">Logout</a>
+    </div>
+    <script>
+      const btnCopy = document.querySelector(".btn-copy");
+      const apiKey = document.querySelector("#api-key");
+      btnCopy.addEventListener("click", () => {
+        navigator.clipboard.writeText(apiKey.textContent);
+        btnCopy.textContent = "Copied!";
+        setTimeout(() => {
+          btnCopy.textContent = "Copy";
+        }, 2000);
+      });
+    </script>
+  </body>
 </html>

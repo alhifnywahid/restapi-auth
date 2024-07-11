@@ -19,7 +19,7 @@ passport.use(
 		{
 			clientID: process.env.GOOGLE_CLIENT_ID,
 			clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-			callbackURL: "https://restapi-auth.vercel.app/auth/google/callback",
+			callbackURL: "/auth/google/callback",
 		},
 		(accessToken, refreshToken, profile, done) => {
 			User.findOne({ googleId: profile.id })
