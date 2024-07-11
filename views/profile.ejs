@@ -105,11 +105,11 @@
   </head>
   <body>
     <div class="container">
-      <h1>Welcome to GOPRETAPI</h1>
+      <h1>WELCOME TO GOPRETAPI</h1>
       <hr class="divider" />
       <table>
         <tr>
-          <th>Nama</th>
+          <th>Name</th>
           <td>: <%= user.displayName %></td>
         </tr>
         <tr></tr>
@@ -119,14 +119,14 @@
         </tr>
         <tr></tr>
         <tr>
-          <th>API Key</th>
+          <th>ApiKey</th>
           <td>
             : <span id="api-key"><%= user.apiKey.key %></span>
             <button class="btn-copy">Copy</button>
           </td>
         </tr>
         <tr>
-          <th>Limit Tersisa</th>
+          <th>Reamining Limit</th>
           <td>: <%= user.apiKey.limit - user.apiKey.usage %></td>
         </tr>
       </table>
